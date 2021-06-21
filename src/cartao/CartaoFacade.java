@@ -12,4 +12,6 @@ public interface CartaoFacade {
 	boolean receber(String numeroCartao, BigDecimal totalCompra);
 	
 	BigDecimal saldo(String numeroCartao);
+	
+	String donoDoCartao(String numeroCartao);
 }

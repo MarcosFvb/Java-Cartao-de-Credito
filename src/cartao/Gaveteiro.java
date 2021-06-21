@@ -43,4 +43,13 @@ public class Gaveteiro {
 		return null;
 	}
 
+	public FichaCliente buscarFicha(String numeroCartao) {
+		for (FichaCliente ficha : fichas) {
+			if (ficha.possuiCartao(numeroCartao)) {
+				return ficha;
+			}
+		}
+		return null;
+	}
+
 }

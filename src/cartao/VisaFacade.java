@@ -46,6 +46,13 @@ public class VisaFacade implements CartaoFacade {
 		System.out.println(empresaCartao.receber("234567", new BigDecimal("200")));
 		
 		System.out.println(empresaCartao.saldo("234567"));
+		System.out.println(empresaCartao.donoDoCartao("234567"));
+	}
+
+	@Override
+	public String donoDoCartao(String numeroCartao) {
+		FichaCliente ficha = gaveteiro.buscarFicha(numeroCartao);
+		return ficha.getNome();
 	}
 	
 }

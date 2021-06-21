@@ -40,4 +40,8 @@ public class FichaCliente {
 	public void add(Cartao cartao) {
 		cartoes.add(cartao);
 	}
+
+	public String getNome() {
+		return nome;
+	}
 }
