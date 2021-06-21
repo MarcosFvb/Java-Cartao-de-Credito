@@ -10,10 +10,10 @@ import java.math.BigDecimal;
  */
 public class VisaFacade implements CartaoFacade {
 
+	private Gaveteiro gaveteiro = new Gaveteiro();
 	@Override
 	public boolean receber(String numeroCartao, BigDecimal totalCompra) {
 		// 1. encontrar a ficha do cartão
-		Gaveteiro gaveteiro = new Gaveteiro();
 		Cartao cartao = gaveteiro.buscar(numeroCartao);
 		if (cartao == null) {
 			throw new CartaoNaoEncontradoException();
@@ -26,30 +26,26 @@ public class VisaFacade implements CartaoFacade {
 		
 		// 3. Registrar no cartão a despesa efetuada
 		
+		cartao.adicionaCompra(totalCompra);
+		
 		// 4. pagar/depositar em conta
 		return true;
 	}
 
 	@Override
 	public BigDecimal saldo(String numeroCartao) {
-		return limiteDoCartao(numeroCartao).subtract(quantoAindaPodeGastar(numeroCartao));
+		Cartao cartao = gaveteiro.buscar(numeroCartao);
+		return cartao.checarSaldo();
 	}
 	
-	
-	private BigDecimal limiteDoCartao(String numeroCartao) {
-		return BigDecimal.ZERO;
-
-	}
-	
-	private BigDecimal quantoAindaPodeGastar(String numeroCartao) {
-		return BigDecimal.ZERO;
-	}
-
 	
 	public static void main(String[] args) {
 		CartaoFacade empresaCartao = new VisaFacade();
 		
-		System.out.println(empresaCartao.receber("9234567", new BigDecimal("10200")));
+		System.out.println(empresaCartao.receber("234567", new BigDecimal("300")));
+		System.out.println(empresaCartao.receber("234567", new BigDecimal("200")));
+		
+		System.out.println(empresaCartao.saldo("234567"));
 	}
 	
 }

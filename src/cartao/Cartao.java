@@ -12,7 +12,7 @@ public abstract class Cartao {
 
 	private String numero;
 	private BigDecimal limite;
-	private BigDecimal extrato;
+	private BigDecimal extrato = BigDecimal.ZERO;
 
 	public Cartao(String numero, BigDecimal limite) {
 		this.numero = numero;
@@ -26,4 +26,13 @@ public abstract class Cartao {
 	public BigDecimal getLimite() {
 		return limite;
 	}
+
+	public void adicionaCompra(BigDecimal totalCompra) {
+		this.extrato = extrato.add(totalCompra);	
+	}
+
+	public BigDecimal checarSaldo() {
+		return limite.subtract(extrato);
+	}
+
 }
